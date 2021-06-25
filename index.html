@@ -1,0 +1,323 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>reveal.js</title>
+
+		<link rel="stylesheet" href="dist/reset.css">
+		<link rel="stylesheet" href="dist/reveal.css">
+		<link rel="stylesheet" href="dist/theme/black.css">
+
+		<!-- Theme used for syntax highlighted code -->
+		<link rel="stylesheet" href="plugin/highlight/monokai.css">
+	</head>
+	<style>
+		.custom-title{
+			color: skyblue!important;
+			text-decoration: underline;
+			font-size: 40px!important;
+			font-style: italic;
+		}
+		#test{
+			width: 100px;
+			height: 50px;
+			border: none;
+			border-radius: 30px;
+		}
+		.example-title{
+			color: orange!important;
+		}
+		#result{
+			color: green!important;
+		}
+	</style>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section>
+					<section>Web Audio API</section>
+					<section>
+						<p>
+							Web Audio API - powerful and unique tool for manipulating audio content on your web-page, 
+							which allows developers to select sources, add some special audio effects, visualize them and so much more.
+						</p>
+					</section>
+				</section>
+				<section>
+					<section>Common concepts of using Web Audio</section>
+						<section>
+						<p>
+							Web audio API allows to process different operations on audio using special audio context and it was build for using modular routing.
+							Basic operations are processed with audio nodes that are combined together forming audio routing graph. Several sources are supported even within simple context.
+							Such module conception provides flexability in creating difficult functions for dynamic effects.
+						</p>
+					</section>
+				</section>
+				<section>
+					<section>
+						Audio nodes are joined into chains and simple networks with their inputs and outputs. Usually they are launched with one or more sources.
+					</section>
+					<section>
+						<p>Sources represent arrays of samples per unit of time.</p>
+						<p>For example with sampling frequency of 44100 Hz in each second of each channel will be 22050 samples</p>
+					</section>
+					<section>
+						<p>They can be processed:</p>
+						<p>mathematically (OscillatorNode),</p> 
+						<p>read from audio/video files (AudioBufferSourceNode and MediaElementAudioSourceNode)</p>
+						<p>or from audio flows (MediaStreamAudioSourceNode).</p>
+					</section>
+				</section>
+				<section>
+					Simple order of audio manipulations
+				</section>
+				<section>
+					<section>
+						<ol>
+							<li>Create audio context</li>
+							<li>Inside define sources like: &ltaudio&gt, generator (oscillator), flow </li>
+							<li>Define effect nodes like reverb, biquad filter, panner, compressor</li>
+							<li>Select final audio output. For example your system audio device</li>
+							<li>Join our inputs to the effects and effects to the output</li>
+						</ol>
+					</section>
+					<section>
+						Distribution of time is controlled with very high accuracy and low delays allowing developers to wite code that accurately responds to events and is able to handle sample even with high sample rate.
+					</section>
+				</section>
+				<section>Web Audio API interfaces</section>
+				<section>
+					<p>Web audio API contains 28 interfaces and appropriate events</p>
+					<p>We can group them into some functional groups</p>
+				</section>	
+				<section>
+					<section>
+						Main audio defining objects 
+					</section>
+					<section>
+						<p class="custom-title">AudioContext</p>
+						<p>
+							AudioContext represents some audio processing object build from audio modules that are connected together, where each component is an instance of an AudioNode class.
+							AudioContext controls creating nodes stored inside of it and realizes audio data formatting and decoding.
+						</p>
+					</section>
+					<section>
+						<p class="custom-title">AudioNode</p>
+						<p>
+							AudioNode interface represents audio source, audio processing module that adds audio effects and final audio object. 
+						</p>
+					</section>
+					<section>
+						<p class="custom-title">AudioParam</p>
+						<p>
+							AudioParams interface represents some audio parameters related to AudioNode. 
+						</p>
+					</section>
+					<section>
+						<p class="custom-title">ended</p>
+						<p>
+							Ended is an event that is generated when the source audio has ended.
+						</p>
+					</section>
+				</section>	
+				<section>
+					<section>
+						Audio sources
+					</section>
+					<section>
+						<p class="custom-title">OscillatorNode</p>
+						<p>
+							OscillatorNode is a sine wave source. This AudioNode that takes frequency and generates sine wave with given frequency.
+						</p>
+					</section>
+					<section>
+						<p class="custom-title">AudioBuffer</p>
+						<p>
+							AudioBuffer is a short audio sample stored in memory that was created from an audio file with AudioContext.decodeAudioData() method. After decoding it can be stored in AudioBufferSourceNode.
+						</p>
+					</section>
+					<section>
+						<p class="custom-title">AudioBufferSourceNode</p>
+						<p>
+							AudioBufferSourceNode is an AudioNode, that represents audio source that was created from data stored in AudioBuffer.
+						</p>
+					</section>
+					<section>
+						<p class="custom-title">MediaElementAudioSourceNode</p>
+						<p>
+							It's an audio source, created from html tags like &ltaudio&gt and &ltvideo&gt.
+						</p>
+					</section>
+					<section>
+						<p class="custom-title">MediaStreamAudioSourceNode</p>
+						<p>
+							It's an audio source, taken from WebRTC MediaStream, for example from web-camera or mic.
+						</p>
+					</section>
+				</section>		
+				<section>
+					<section>
+						Audio filters
+					</section>
+					<section>
+						<p class="custom-title">BiquadFilterNode</p>
+						<p>
+							It's an AudioNode that represents different filters such as equalizer or tone controller.
+						</p>
+						<p>It has one input and one output</p>
+					</section>
+					<section>
+						<p class="custom-title">DelayNode</p>
+						<p>
+							It's an AudioNode that represents delay effect that creates delay between input and output.
+						</p>
+						<p>It has one input and one output</p>
+					</section>
+					<section>
+						<p class="custom-title">GainNode</p>
+						<p>
+							It's an AudioNode that represents gain effect that changes input audio volume on a given gain parameter.
+						</p>
+						<p>It has one input and one output</p>
+					</section>
+				</section>
+				<section>
+					<section>Audio destinations</section>
+					<section>
+						<p class="custom-title">AudioDestinationNode</p>
+						<p>
+							Represents an output of an audio context. Usually outputs audio on system speakers.	
+						</p>
+					</section>
+				</section>
+				<section>
+					<section>Data analization</section>
+					<section>
+						<p class="custom-title">AnalyserNode</p>
+						<p>This AudioNode is capable of providing real-time frequency and time-domain analysis info for	data analysis and visualization</p>
+					</section>
+				</section>
+				<section>
+					<section>Audio spatialization</section>
+					<section>
+						<p class="custom-title">AudioListener</p>
+						<p>
+							The AudioListener interface represents the position of the web-site user listening to the audio in space.
+						</p>
+					</section>
+					<section>
+						<p class="custom-title">PannerNode</p>
+						<p>
+							The PannerNode interface represents the behavior of an audio signal in space. It describes its movements and location.
+						</p>
+					</section>
+				</section>
+				<section>
+					<section>Example of creating app with WebAudioAPI</section>
+					<section>
+						<p class="example-title">1. Create Audio Context</p>
+						<pre><code>
+							const audioContext = new AudioContext(); 
+						</code></pre>
+					</section>
+					<section>
+						<p class="example-title">2. Create audio source</p>
+						<p>For example it will be oscillator</p>
+						<pre><code>
+							const oscillator = audioContext.createOscillator();
+							oscillator.frequency.setValueAtTime(261.6, 0);
+						</code></pre>
+					</section>
+					<section>
+						<p class="example-title">3. Create gain controller to lower the volume</p>
+						<pre><code>				
+							const gainController = audioContext.createGain();
+							gainController.gain.setValueAtTime(0.5, 0);
+						</code></pre>
+					</section>
+					<section>
+						<p class="example-title">4. Connect audio source to gainController and gainController to audio output</p>
+						<pre><code>				
+							oscillator.connect(gainController);
+							gainController.connect(audioContext.destination);
+						</code></pre>
+					</section>	
+					<section>
+						<p class="example-title">5. To play audio we use method .start() on our audio source</p>
+						<pre><code>				
+							oscillator.start();
+							oscillator.stop(audioContext.currentTime + 0.5);
+						</code></pre>
+					</section>					
+				</section>
+				<section>
+					<p id="result">The result!</p>
+					<button id="test">Check audio!</button>
+					<pre><code>
+						document.getElementById('test').addEventListener('click', () => {
+							const audioContext = new AudioContext();
+							const oscillator = audioContext.createOscillator();
+							oscillator.frequency.setValueAtTime(261.6, 0);
+							const gainController = audioContext.createGain();
+							gainController.gain.setValueAtTime(0.5, 0);
+							oscillator.connect(gainController);
+							gainController.connect(audioContext.destination);
+							oscillator.start();
+							oscillator.stop(audioContext.currentTime + 0.5);
+						})
+					</code></pre>
+				</section>
+				<section>
+					<section>
+						<p>Used sources:</p>
+						<ol>
+							<li><a href="https://developer.mozilla.org/ru/docs/Web/API/Web_Audio_API">Main documentation (https://developer.mozilla.org/ru/docs/Web/API/Web_Audio_API)</a></li>
+							<li><a href="https://pudding.cool/2018/02/waveforms/">Cool demonstration of how frequency work (https://pudding.cool/2018/02/waveforms/)</a></li>
+							<li><a href="https://www.youtube.com/watch?v=laCjGMhASp8">Video guide into WebAudioAPI (https://www.youtube.com/watch?v=laCjGMhASp8)</a></li>
+						</ol>
+					</section>
+					<section>
+						<p>Fun websites that use WebAudioAPI</p>
+						<ol>
+							<li><a href="https://webaudioplayground.appspot.com/" target="blank">WebAudioPlayground</a></li>
+							<li><a href="https://mdn.github.io/violent-theremin/">Violent Theremin</a></li>
+							<li><a href="https://mdn.github.io/voice-change-o-matic/">Voice change-o-matic</a></li>
+						</ol>
+					</section>
+				</section>
+				<section>Thanks for your attention!</section>
+			</div>
+		</div>
+
+		<script>
+			document.getElementById('test').addEventListener('click', () => {
+				const audioContext = new AudioContext();
+				const oscillator = audioContext.createOscillator();
+				oscillator.frequency.setValueAtTime(261.6, 0);
+				const gainController = audioContext.createGain();
+				gainController.gain.setValueAtTime(0.5, 0);
+				oscillator.connect(gainController);
+				gainController.connect(audioContext.destination);
+				oscillator.start();
+				oscillator.stop(audioContext.currentTime + 0.5);
+			})
+		</script>
+		<script src="dist/reveal.js"></script>
+		<script src="plugin/notes/notes.js"></script>
+		<script src="plugin/markdown/markdown.js"></script>
+		<script src="plugin/highlight/highlight.js"></script>
+		<script>
+			// More info about initialization & config:
+			// - https://revealjs.com/initialization/
+			// - https://revealjs.com/config/
+			Reveal.initialize({
+				hash: true,
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+			});
+		</script>
+	</body>
+</html>
